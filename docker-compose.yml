@@ -1,0 +1,53 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:3000
+    container_name: p2_frontend
+    ports:
+      - '3001:3000'
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ./T2
+    container_name: p2_backend
+    ports:
+      - '3000:3000'
+    environment:
+      PORT: 3000
+      NODE_ENV: development
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/t2_api?schema=public
+      MONGO_URI: mongodb://mongo:27017/t2_api
+      JWT_SECRET: troque_esta_chave_em_producao
+      JWT_EXPIRES_IN: 1h
+      BCRYPT_SALT_ROUNDS: 10
+    depends_on:
+      - postgres
+      - mongo
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: p2_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: t2_api
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:7
+    container_name: p2_mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  postgres_data:
+  mongo_data:
