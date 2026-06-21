@@ -49,7 +49,7 @@ export default function UsuariosPage() {
         await api.put(`/usuarios/${selectedId}`, payload);
         setMessage('Usuário atualizado com sucesso');
       } else {
-        await api.post('/auth/register', { ...payload, senha: form.senha });
+        await api.post('/usuarios', { ...payload, senha: form.senha });
         setMessage('Usuário criado com sucesso');
       }
       setForm(initialForm);

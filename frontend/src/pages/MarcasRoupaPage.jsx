@@ -58,7 +58,7 @@ export default function MarcasRoupaPage() {
   }
 
   function handleEdit(marca) {
-    setSelectedId(marca.id);
+    setSelectedId(marca._id || marca.id);
     setForm({
       nome: marca.nome || '',
       paisOrigem: marca.paisOrigem || '',
@@ -187,7 +187,7 @@ export default function MarcasRoupaPage() {
             </thead>
             <tbody className="divide-y divide-slate-800 bg-slate-950/80">
               {marcas.map((marca) => (
-                <tr key={marca.id} className="transition hover:bg-slate-900/80">
+                <tr key={marca._id || marca.id} className="transition hover:bg-slate-900/80">
                   <td className="px-4 py-4">{marca.nome}</td>
                   <td className="px-4 py-4">{marca.paisOrigem || '-'}</td>
                   <td className="px-4 py-4">{marca.categoria || '-'}</td>
@@ -200,7 +200,7 @@ export default function MarcasRoupaPage() {
                       Editar
                     </button>
                     <button
-                      onClick={() => handleDelete(marca.id)}
+                      onClick={() => handleDelete(marca._id || marca.id)}
                       className="rounded-full bg-rose-500/10 px-3 py-1 text-rose-200 transition hover:bg-rose-500/20"
                     >
                       Excluir

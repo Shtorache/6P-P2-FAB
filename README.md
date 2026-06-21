@@ -1,42 +1,69 @@
-# P2 Frontend + Backend
+# P2 - Frontend React + Backend T2
 
-Este repositório contém:
+Este repositorio contem a entrega completa da P2:
 
-- `T2/`: backend Node.js/Express com PostgreSQL, MongoDB e JWT.
-- `frontend/`: frontend React + Tailwind que consome o backend.
+- `frontend/`: aplicacao React com Tailwind CSS.
+- `T2/`: API Node.js/Express com PostgreSQL, MongoDB, JWT, Swagger e testes.
 
-## Como subir a aplicação completa
+## Como subir com Docker
 
-1. Instalar dependências na raiz do frontend:
-   - `cd frontend`
-   - `npm install`
+Execute na raiz do projeto:
 
-2. Subir os containers com Docker Compose:
-   - `docker compose up --build`
+```bash
+docker compose up --build
+```
 
-3. Acessar no navegador:
-   - Frontend: `http://localhost:3001`
-   - API: `http://localhost:3000`
+Apos os containers subirem, acesse:
 
-## Configuração de ambiente
+- Frontend: `http://localhost:3001`
+- API: `http://localhost:3000`
+- Swagger: `http://localhost:3000/api-docs`
+- Health check: `http://localhost:3000/health`
 
-- O frontend usa `VITE_API_URL` para acessar o backend.
-- A variável `VITE_AUTH_TOKEN_KEY` define a chave do token JWT no `localStorage`.
-- Um arquivo de exemplo está em `frontend/.env.example`.
+Credenciais de exemplo criadas pelo seed do backend:
 
-## O que já está implementado
+- Email: `admin@p2.local`
+- Senha: `senha123`
 
-- Login integrado com a API do backend.
-- Token JWT armazenado no `localStorage`.
-- Controle de acesso para rotas privadas no frontend.
-- Navegação entre telas com React Router.
-- Páginas para listar usuários, carros, motos e marcas de roupa.
-- Container Docker para o frontend.
-- Integração de frontend e backend via `docker-compose.yml`.
+## Variaveis de ambiente
 
-## Notas
+O frontend usa as variaveis em `frontend/.env.example`:
 
-- O backend é construído a partir de `T2/`.
-- O frontend roda em `http://localhost:3001` e consome a API em `http://localhost:3000` quando executado via Docker.
-- O backend gera dados iniciais automaticamente ao iniciar, incluindo um usuário admin e 3 itens de exemplo para carros, motos e marcas de roupa.
-- Credenciais de exemplo: `admin@p2.local / senha123`.
+```env
+VITE_API_URL=http://localhost:3000
+VITE_AUTH_TOKEN_KEY=app_token
+```
+
+No Docker Compose da raiz, `VITE_API_URL` e configurada como `http://localhost:3000`, porque as requisicoes partem do navegador do usuario.
+
+## Funcionalidades
+
+- Login integrado com JWT.
+- Rotas protegidas no frontend.
+- Navegacao entre dashboard, usuarios, carros, motos e marcas de roupa.
+- CRUD de usuarios usando rota protegida do backend.
+- CRUD de carros, motos e marcas de roupa.
+- Mensagens de sucesso e erro nas operacoes.
+- Layout responsivo com Tailwind CSS.
+
+## Testes
+
+Backend:
+
+```bash
+cd T2
+npm test
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm run build
+```
+
+Observacao: os testes do backend limpam as tabelas/colecoes usadas. Se voce rodar testes contra os mesmos bancos do Docker Compose, reaplique o seed com:
+
+```bash
+docker exec p2_backend npm run seed
+```

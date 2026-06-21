@@ -59,7 +59,7 @@ export default function MotosPage() {
   }
 
   function handleEdit(moto) {
-    setSelectedId(moto.id);
+    setSelectedId(moto._id || moto.id);
     setForm({
       marca: moto.marca || '',
       modelo: moto.modelo || '',
@@ -204,7 +204,7 @@ export default function MotosPage() {
             </thead>
             <tbody className="divide-y divide-slate-800 bg-slate-950/80">
               {motos.map((moto) => (
-                <tr key={moto.id} className="transition hover:bg-slate-900/80">
+                <tr key={moto._id || moto.id} className="transition hover:bg-slate-900/80">
                   <td className="px-4 py-4">{moto.marca}</td>
                   <td className="px-4 py-4">{moto.modelo}</td>
                   <td className="px-4 py-4">{moto.cilindradas}</td>
@@ -218,7 +218,7 @@ export default function MotosPage() {
                       Editar
                     </button>
                     <button
-                      onClick={() => handleDelete(moto.id)}
+                      onClick={() => handleDelete(moto._id || moto.id)}
                       className="rounded-full bg-rose-500/10 px-3 py-1 text-rose-200 transition hover:bg-rose-500/20"
                     >
                       Excluir

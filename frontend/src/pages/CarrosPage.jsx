@@ -59,7 +59,7 @@ export default function CarrosPage() {
   }
 
   function handleEdit(carro) {
-    setSelectedId(carro.id);
+    setSelectedId(carro._id || carro.id);
     setForm({
       marca: carro.marca || '',
       modelo: carro.modelo || '',
@@ -202,7 +202,7 @@ export default function CarrosPage() {
             </thead>
             <tbody className="divide-y divide-slate-800 bg-slate-950/80">
               {carros.map((carro) => (
-                <tr key={carro.id} className="transition hover:bg-slate-900/80">
+                <tr key={carro._id || carro.id} className="transition hover:bg-slate-900/80">
                   <td className="px-4 py-4">{carro.marca}</td>
                   <td className="px-4 py-4">{carro.modelo}</td>
                   <td className="px-4 py-4">{carro.ano}</td>
@@ -216,7 +216,7 @@ export default function CarrosPage() {
                       Editar
                     </button>
                     <button
-                      onClick={() => handleDelete(carro.id)}
+                      onClick={() => handleDelete(carro._id || carro.id)}
                       className="rounded-full bg-rose-500/10 px-3 py-1 text-rose-200 transition hover:bg-rose-500/20"
                     >
                       Excluir
